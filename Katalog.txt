@@ -1,6 +1,0 @@
-Slipknot | All Hope Is Gone | Nu Metal / Alternative Metal | 2008 | Roadrunner Records | images/omot1.jpg
-Rammstein | Mutter | Industrial Metal | 2001 | Universal Music |  images/omot2.jpg
-Michael Jackson | Thriller | Pop | 1982 | Epic Records | images/omot3.jpg
-Metallica | Master of Puppets | Heavy Metal | 1986 | Elektra Records | images/omot4.jpg
-Taylor Swift | 1989 | Pop | 2014 | Big Machine Records | images/omot5.jpg
-Avicii | True | Electronic | 2013 | PRMD / Island Records | images/omot6.png
