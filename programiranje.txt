@@ -1,0 +1,183 @@
+private void PuniComboBox()
+{
+Kon.Open();
+SqlCommand cmd = new SqlCommand(&quot;PuniComboBox&quot;, Kon);
+cmd.CommandType = CommandType.StoredProcedure;
+cmd.ExecuteNonQuery();
+DataTable dt = new DataTable();
+dt.Load(cmd.ExecuteReader());
+ComboBox1.DataSource = dt;
+ComboBox1.DisplayMember = &quot;Nesto&quot;;
+Kon.Close();
+}
+
+
+private void PuniListBox()
+{
+Kon.Open();
+SqlCommand cmd = new SqlCommand(&quot;PuniListBox&quot;, Kon);
+cmd.CommandType = CommandType.StoredProcedure;
+cmd.ExecuteNonQuery();
+DataTable dt = new DataTable();
+dt.Load(cmd.ExecuteReader());
+listBox1.DataSource = dt;
+listBox1.DisplayMember = &quot;Nesto&quot;;
+Kon.Close();
+}
+
+private void PuniCheckListBox()
+{
+int i;
+Kon.Open();
+SqlCommand cmd = new SqlCommand(&quot;PuniCheckListBox&quot;, Kon);
+cmd.CommandType = CommandType.StoredProcedure;
+SqlDataAdapter sda = new SqlDataAdapter(cmd);
+DataTable dt = new DataTable();
+sda.Fill(dt);
+for (i = 0; i &lt; dt.Rows.Count; i++)
+{
+checkedListBox1.Items.Add(dt.Rows[i][&quot;Kategorija&quot;].ToString());
+}
+Kon.Close();
+}
+
+
+private void PuniGrid()
+{
+Kon.Open();
+SqlCommand cmd = new SqlCommand(&quot;PuniDataGrid&quot;, Kon);
+cmd.CommandType = CommandType.StoredProcedure;
+cmd.ExecuteNonQuery();
+DataTable dt = new DataTable();
+dt.Load(cmd.ExecuteReader());
+dataGridView1.DataSource = dt;
+Kon.Close();
+}
+private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+{
+txtSifraP.Text = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+txtNazivP.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+cmbJM.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+cmbKategorija.Text = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
+txtCena.Text = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
+txtKolicina.Text = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
+txtVrednost.Text = dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString();
+dtpDatumPrijema.Text = dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString();
+maskedRokTrajanja.Text = dataGridView1.Rows[e.RowIndex].Cells[9].Value.ToString();
+}
+
+
+private void PuniGridChart2()
+{
+Kon.Open();
+SqlCommand cmd = new SqlCommand(&quot;PuniGridChart2&quot;, Kon);
+cmd.CommandType = CommandType.StoredProcedure;
+cmd.Parameters.AddWithValue(&quot;@Kategorija&quot;, SqlDbType.VarChar).Value = comboKategorijaChart.Text.ToString();
+cmd.Parameters.AddWithValue(&quot;@VrednostOD&quot;, SqlDbType.VarChar).Value = numericVrednostOD.Value.ToString();
+cmd.Parameters.AddWithValue(&quot;@VrednostDO&quot;, SqlDbType.VarChar).Value = numericVrednostDO.Value.ToString();
+cmd.ExecuteNonQuery();
+DataTable dt = new DataTable();
+dt.Load(cmd.ExecuteReader());
+chart1.DataSource = dt;
+dataGridView1.DataSource = dt;
+chart1.Series[&quot;Series1&quot;].XValueMember = &quot;NazivProizvoda&quot;;
+chart1.Series[&quot;Series1&quot;].YValueMembers = &quot;Vrednost&quot;;
+chart1.Titles.Add(comboKategorijaChart.Text);
+Kon.Close();
+}
+
+
+private void UnesiProizvod()
+{
+Kon.Open();
+SqlCommand cmd = new SqlCommand(&quot;UnesiProizvod&quot;, Kon);
+cmd.CommandType = CommandType.StoredProcedure;
+cmd.Parameters.AddWithValue(&quot;@NazivProizvoda&quot;, SqlDbType.VarChar).Value = txtNazivP.Text.ToString();
+cmd.Parameters.AddWithValue(&quot;@JedinicaMere&quot;, SqlDbType.VarChar).Value = cmbJM.Text.ToString();
+cmd.Parameters.AddWithValue(&quot;@Kategorija&quot;, SqlDbType.VarChar).Value = cmbKategorija.Text.ToString();
+cmd.Parameters.AddWithValue(&quot;@Cena&quot;, SqlDbType.VarChar).Value = txtCena.Text.ToString();
+cmd.Parameters.AddWithValue(&quot;@Kolicina&quot;, SqlDbType.VarChar).Value = txtKolicina.Text.ToString();
+cmd.Parameters.AddWithValue(&quot;@DatumPrijema&quot;, SqlDbType.DateTime).Value = dtpDatumPrijema.Value.ToString();
+cmd.Parameters.AddWithValue(&quot;@RokTrajanja&quot;, SqlDbType.VarChar).Value = maskedRokTrajanja.Text.ToString();
+cmd.Parameters.AddWithValue(&quot;@ImaRokTrajanja&quot;, SqlDbType.VarChar).Value = chkRokTrajanja.Checked.ToString();
+cmd.ExecuteNonQuery();
+Kon.Close();
+}
+private void IzmeniProizvod()
+{
+Kon.Open();
+SqlCommand cmd = new SqlCommand(&quot;IzmeniProizvod&quot;, Kon);
+cmd.CommandType = CommandType.StoredProcedure;
+cmd.Parameters.AddWithValue(&quot;@SifraProizvoda&quot;, SqlDbType.VarChar).Value = txtSifraP.Text.ToString();
+cmd.Parameters.AddWithValue(&quot;@NazivProizvoda&quot;, SqlDbType.VarChar).Value = txtNazivP.Text.ToString();
+cmd.Parameters.AddWithValue(&quot;@JedinicaMere&quot;, SqlDbType.VarChar).Value = cmbJM.Text.ToString();
+cmd.Parameters.AddWithValue(&quot;@Kategorija&quot;, SqlDbType.VarChar).Value = cmbKategorija.Text.ToString();
+cmd.Parameters.AddWithValue(&quot;@Cena&quot;, SqlDbType.VarChar).Value = txtCena.Text.ToString();
+cmd.Parameters.AddWithValue(&quot;@Kolicina&quot;, SqlDbType.VarChar).Value = txtKolicina.Text.ToString();
+cmd.Parameters.AddWithValue(&quot;@DatumPrijema&quot;, SqlDbType.VarChar).Value = dtpDatumPrijema.Value.ToString();
+cmd.Parameters.AddWithValue(&quot;@RokTrajanja&quot;, SqlDbType.VarChar).Value = maskedRokTrajanja.Text.ToString();
+cmd.Parameters.AddWithValue(&quot;@ImaRokTrajanja&quot;, SqlDbType.VarChar).Value = chkRokTrajanja.Checked.ToString();
+cmd.ExecuteNonQuery();
+Kon.Close();
+}
+private void BrisiProizvodLB()
+{
+Kon.Open();
+SqlCommand cmd = new SqlCommand(&quot;BrisiProizvod&quot;, Kon);
+cmd.CommandType = CommandType.StoredProcedure;
+cmd.Parameters.AddWithValue(&quot;@SifraProizvoda&quot;, SqlDbType.VarChar).Value = txtSifraProizvodaLB.Text.ToString();
+cmd.ExecuteNonQuery();
+Kon.Close();
+}
+
+
+private void PuniListView()
+{
+listView1.Items.Clear();
+Kon.Open();
+SqlCommand cmd = new SqlCommand(&quot;PuniListView&quot;, Kon);
+cmd.CommandType = CommandType.StoredProcedure;
+dr = cmd.ExecuteReader();
+while (dr.Read())
+{
+ListViewItem red = new ListViewItem(dr[0].ToString());
+for (int i = 1; i &lt; 10; i++) /* i IDE DO KOLIKO POLJA VRACA PROCEDURA*/
+red.SubItems.Add(dr[i].ToString());
+listView1.Items.Add(red);
+}
+Kon.Close();
+}
+
+private void SaListViewNaKontrole()
+{
+foreach (ListViewItem item in listView1.SelectedItems)
+{
+id = Convert.ToInt32(item.SubItems[0].Text);
+txtSifraP.Text = id.ToString();
+txtNazivP.Text = item.SubItems[1].Text;
+cmbJM.Text = item.SubItems[2].Text;
+cmbKategorija.Text = item.SubItems[3].Text;
+txtCena.Text =item.SubItems[4].Text;
+txtKolicina.Text = item.SubItems[5].Text;
+txtVrednost.Text = item.SubItems[6].Text;
+dtpDatumPrijema.Value = Convert.ToDateTime(item.SubItems[7].Text);
+}
+}
+
+
+
+private void listBox1_Click(object sender, EventArgs e) -sa listboxa na kontrole
+{
+string Par_Proizvod = listBox1.Text.ToString();
+string[] PProizvod = Par_Proizvod.Split(&#39;-&#39;);
+txtSifraProizvodaLB.Text = PProizvod[0].ToString().Trim();
+txtNazivProizvodaLB.Text = PProizvod[1].ToString().Trim();
+cmbJMLB.Text = PProizvod[2].ToString().Trim();
+cmbKategorijaLB.Text = PProizvod[3].ToString().Trim();
+txtCenaLB.Text = PProizvod[4].ToString().Trim();
+txtKolicinaLB.Text = PProizvod[5].ToString().Trim();
+txtVrednostLB.Text = PProizvod[6].ToString().Trim();
+dtpDatumPrijemaLB.Value = Convert.ToDateTime(PProizvod[7].ToString().Trim());
+maskedRokTrajanjaLB.Text = PProizvod[9].ToString().Trim();
+}
+
